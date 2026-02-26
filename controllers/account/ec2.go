@@ -332,7 +332,7 @@ func CreateEC2Instance(reqLogger logr.Logger, account *awsv1alpha1.Account, clie
 			if errors.As(runErr, &aerr) {
 				// We want to ensure that we don't leave any instances around when there is an error
 				// possible that there is no instance here
-				if len(runResult.Instances) > 0 {
+				if runResult != nil && len(runResult.Instances) > 0 {
 					timeoutInstanceID = *runResult.Instances[0].InstanceId
 				}
 				switch aerr.ErrorCode() {
